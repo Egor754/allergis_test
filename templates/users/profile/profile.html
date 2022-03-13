@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <p class="h2">Profile</p>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <p class="h5"><label class="form-label text-secondary">Name:</label> {{ user.first_name }}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                      <div class="col-md-7">
+                        <p class="h5"><label class="form-label text-secondary">Surname:</label> {{ user.last_name }}</div></p>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                      <p class="h5"><label class="form-label">Allergens:</label></p>
+                      <div class="list-group">
+                        {% for allergen in user.allergens.all %}
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold">
+                            {{ allergen.name }}
+                          </div>
+                            <p class="text-secondary">{{ allergen.bloom_start }} - {{ allergen.bloom_end }}</p>
+                        </div>
+                        {% endfor %}
+
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 border-left">
+              <img class="rounded-circle mt-5" width="150px" src ="{{ user.avatar_url }}">
+              <span class="font-weight-bold"></span>
+              <span class="text-black-50">{{ user.email }}</span>
+              <div class="mt-5">
+                <a href="{% url 'profile_update' %}" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Edit Profile</a>
+            </div>
+      </div>
+    </div>
+{% endblock %}

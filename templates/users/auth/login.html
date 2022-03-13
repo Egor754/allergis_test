@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In Page{% endblock title %}
+
+{% block content %}
+    {% load socialaccount %}
+{% load account socialaccount %}
+    <h2>Sign Page</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" value="Login" class="btn btn-primary">Login</button>
+        <br><br>
+    </form>
+                        <a class="btn btn-primary mt-3" href="{% provider_login_url "vk" method="oauth2" %}" role="button">Войти через VK</a>
+{% endblock %}

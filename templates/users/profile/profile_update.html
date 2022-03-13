@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="row">
+
+        <form method="post" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <p class="h2">Update profile</p>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-md-6"><p class="h5"><label class="form-label">Name:</label></p>{{ form.first_name }}</div>
+                      <div class="col-md-6"><p class="h5"><label class="form-label">Last Name:</label></p>{{ form.last_name }}</div>
+                  </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                          <p class="h5"><label class="form-label">Email: </label></p>
+                          {{ form.email }}
+                        </div>
+                            {{ form.email.errors }}
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                          <p class="h5"><label class="form-label">Avatar: </label></p>
+                          {{ form.avatar }}
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                          <p class="h5"><label class="labels">Allergens: </label></p>
+                          {{ form.allergens }}
+                        </div>
+                    </div>
+                    <div class="mt-5"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+Place detail
+{% endblock %}
+{% block content %}
+<div class="container">
+  <p class="h2">Place</p>
+  <br>
+  <div class="row row-cols-4 g-2">
+      <div class="col p-2">
+        <p class="h5"><label class="form-label text-secondary">District: </label>{{ place.district }}</p>
+        <p class="h5"><label class="form-label text-secondary">Degree: </label>{{ place.degree }}</p>
+        {% if place.description %}
+        <p class="h5"><label class="form-label text-secondary">Description: </label>{{ place.description }}</p>
+        {% endif %}
+      </div>
+      <div class="col p-2">
+        <figure class="figure">
+          <img src="https://wompampsupport.azureedge.net/fetchimage?siteId=7575&v=2&jpgQuality=100&width=700&url=https%3A%2F%2Fi.kym-cdn.com%2Fentries%2Ficons%2Fmobile%2F000%2F013%2F564%2Fdoge.jpg" class="figure-img img-fluid rounded">
+          <figcaption class="figure-caption">Placeholder for map</figcaption>
+        </figure>
+      </div>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="row-6">
+        <div class="col-6">{{ form.text }}</div>
+        <button class="btn btn-primary profile-button" type="submit">Create comment</button>
+    </div>
+<hr>
+  </form>
+  <ol class="list-group list-group-flush">
+    {% for comment in comments %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+      <span class="badge bg-success rounded-pill">{{ comment.user.full_name }}</span>
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{ comment.text }}</div>
+        <p class="text-secondary">created: {{ comment.created }}</p>
+        {% if request.user.id == comment.user.id %}
+        <a class="badge rounded-pill btn-danger btn" href="{% url 'comment-delete' pk=comment.pk%}">delete</a>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+    <br>
+</div>
+{% endblock %}
